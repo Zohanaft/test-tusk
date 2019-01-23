@@ -13,13 +13,17 @@ class View {
     }
 
     public function render($title, $vars = []) {
+        
         ob_start();
-        $path = 'App/Views/' . $this->path . '.php';
-        if (file_exists($path)) {
-            require $path;
-        }
+            $path = 'App/Views/' . $this->path . '.php';
+         
+            if (file_exists($path)) {
+                require $path;
+            }
         $content = ob_get_clean();
-        $path = 'App/Views/Layouts/' . $this->layout . '.php';
+
+
+        $path = 'App/Views/layouts/' . $this->layout . '.php';
 
         if (file_exists($path)) {
             require $path;
@@ -35,6 +39,7 @@ class View {
         http_response_code($code);
         $path = "App/Views/errors/" . $code . '.php';
         if (file_exists($path)) {
+                
             require $path;
         }
         exit;

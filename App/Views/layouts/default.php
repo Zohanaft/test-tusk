@@ -8,9 +8,11 @@
     <title>Все хреново</title>
 <link href="css/app.css" rel="stylesheet"></head>
 <body>
-    <?php echo $content; ?>
+    <?php
+        echo $content;
+    ?>
     
 
-    
+    <script src="js/app.js"></script>    
 </body>
 </html>

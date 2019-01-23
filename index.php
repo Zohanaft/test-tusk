@@ -25,7 +25,6 @@ function class_exists_debug($classname) {
 spl_autoload_register(function($class) {
     $class =  str_replace("\\", "/", __NAMESPACE__ . $class . ".php");
     if (file_exists($class)) {
-        echo "<br>INCLUDE: " . $class . "<br>";
         require $class; 
 
     } 

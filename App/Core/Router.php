@@ -24,11 +24,8 @@ class Router {
 
     public function match() {
         $url = $_SERVER['REQUEST_URI'];
-        echo $url . "<br>";
         foreach ( $this->routes as $route => $params ) {
             if ( preg_match( $route, $url, $matches ) ) {
-                echo "MATCHES: ";
-                debug($matches);
                 $this->params = $params;
                 return true;
             }
@@ -43,15 +40,12 @@ class Router {
                     . ucfirst($this->params['controller']) 
                     . 'Controller';
 
-            debug($this->routes);
-
             if (class_exists($path)) {
                 $action = $this->params['action'] . 'Action';
 
                 if (method_exists($path, $action)) {
                     $controller = new $path($this->params);
                     $controller->$action();
-                    echo $action;
                 }
                 else {
                     View::errorCode(404);

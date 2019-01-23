@@ -8,14 +8,17 @@ class CommentController extends Controller {
 
     public function addCommentAction() {
         $res = $this->model->getComment();
-        if ( !empty($_POST) ) {
-            $this->model->setComment($_POST);
-        }
-        
-        $this->view->render('Форум анонимных алкашей', $res);
+        $this->view->render('Все хреново', $res);
     }
 
+    public function getCommentAction() {
+        $this->model->getLastComment();
+        $this->view->render($res)
+    }
 
+    public function postCommentAction() {
+        $this->model->setComment($_POST);
+    }
 
 }
 

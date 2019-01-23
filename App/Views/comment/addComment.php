@@ -1,7 +1,7 @@
 <div class="wrapper">
         <div class="com-form-wrapper col-md-6">
             <div class="com-form">
-                <form method="post">
+                <form id="send-comment" method="post">
                 <div>
                         <span class="help">
                         <input  class="com-form-textinput" 
@@ -53,9 +53,11 @@
                                 maxlength="200" 
                                 required></textarea>
                     
-                    <input  class="com-form-submit" 
-                            type="submit"
-                            value="Отправить">  
+                    <input  id="send_comment"
+                            class="com-form-submit" 
+                            type="button"
+                            value="Отправить">
+
                 </form>
                     
             </div>
@@ -112,7 +114,7 @@
                                 $value["surname"],
                                 $value["lastname"],
                                 $value["dt"],
-                                $value["com_text"]
+                                $value["comment"]
                             );
                         }
                     ?>

@@ -14,35 +14,34 @@ class Db {
     private static $PORT = '5432';
     private static $PASS = '1';
 
+    private $pdo;
+
     private function __construct () {
         $dsn = "pgsql" . 
-            ":host=" . self::$HOST .
-            ";port=" . self::$PORT . 
-            ";dbname=" . self::$NAME;
+            ":host=" . static::$HOST .
+            ";port=" . static::$PORT . 
+            ";dbname=" . static::$NAME;
             
         $opt  = array(
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             PDO::ATTR_EMULATE_PREPARES   => TRUE,
         );
-        
-        self::$instance = new PDO( $dsn,self::$USER, self::$PASS, $opt );
+
+        $this->pdo = new PDO( $dsn, static::$USER, static::$PASS, $opt );
     }
 
-    private function __clone() {}
-    private function __wakeup() {}
-    
     public static function getInstance() {
         if (static::$instance === null) {
-            static::$instance = new self;
+            static::$instance = new static;
         }
-        return self::$instance;
+        return static::$instance;
     }
 
     public function query($sql, $params=[]) {
-        // Где-то тут ошибка (несуществующий метод); 
-        $stmt = static::$instance->prepare($sql);
         
+        $stmt = static::getInstance()->pdo->prepare($sql);
+
         if ( !empty($params) ) {
             foreach ($params as $key => $val) {
                 $stmt->bindValue(':'.$key,$val);
@@ -57,11 +56,6 @@ class Db {
     public function row($sql, $params=[]) {
         $result = $this->query($sql, $params);
         return $result->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function column($sql, $params=[]) {
-        $result = $this->query($sql, $params);
-        return $result->fetchCOlumn();
     }
 
 };
