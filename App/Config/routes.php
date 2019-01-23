@@ -8,6 +8,6 @@ return [
         'controller'=> 'comment',
         'action'    => 'addComment'
     ]   
-];
+]
 
 ?>
