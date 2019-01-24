@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
     <title>Все хреново</title>
-<link href="css/app.css" rel="stylesheet"></head>
+    <link href="css/app.css" rel="stylesheet">
+</head>
 <body>
     <?php
         echo $content;

@@ -29,7 +29,11 @@ class View {
             require $path;
         }
     }
-    
+
+    public function shortEndpoint($title, $vars=[]) { 
+       echo json_encode($vars);
+    }
+
     public function redirect($url) {
         header('location: ' . $url);
         exit;

@@ -1,20 +1,20 @@
 <?php
 return [
     'comments' => [
-        'controller'=> 'comment',
-        'action'    => 'addComment'
+        'controller'    => 'comment',
+        'action'        => 'layoutRender'
     ],
     '' => [
-        'controller'=> 'comment',
-        'action'    => 'addComment'
+        'controller'    => 'comment',
+        'action'        => 'layoutRender'
     ],
-    'post-comment'  => [
-        'controller' => 'comment',
-        'action'     => 'postComment'
+    'post-comment'      => [
+        'controller'    => 'comment',
+        'action'        => 'postComment'
     ],
-    'get-comment'   => [
-        'controller'=> 'comment',
-        'action'    => 'getComment'
+    'get-comment'       => [
+        'controller'    => 'comment',
+        'action'        => 'getComment'
     ]
 ];
 

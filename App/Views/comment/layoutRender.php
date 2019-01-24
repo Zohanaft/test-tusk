@@ -63,61 +63,11 @@
             </div>
         </div>
 
-
-        <?php
-        //input type submit заменить на input type button
-
-        /// COMMENT MANAGER
-        function renderComment($name,$surname,$lastname,$date,$comment) 
-        {
-        ?>
-        <li>
-            <div class="comment">
-                  <div class="self-photo">
-                      <a href="#" class="self-link">
-                          <img src="assets/nav_self_1366117.png" alt="">
-                      </a>
-                  </div>
-                  <div class="main-comment">
-                      <p class="self-info">
-                            <?php
-                                echo $surname . ' ' . $name . ' ' . $lastname;
-                            ?>
-                      </p>
-                      <p class="self-comment">
-                            <?php
-                                echo $comment;
-                            ?>
-                      </p>
-                      <p class="self-comment-time">
-                            <?php
-                                echo $date;
-                            ?>
-                      </p>
-                  </div>
-              </div>
-          </li>
-          
-        <?php
-        
-        }
-
-        ?>
-        
+       
         <div class="col-md-6">
             <div class="com-list">
-                <ul>
-                    <?php
-                        foreach ($vars as $key => $value) {
-                            renderComment(
-                                $value["firstname"],
-                                $value["surname"],
-                                $value["lastname"],
-                                $value["dt"],
-                                $value["comment"]
-                            );
-                        }
-                    ?>
+                <ul id="com-list">
+
                 </ul>
             </div>
         </div>
