@@ -11,7 +11,8 @@
                                 maxlength="30" 
                                 placeholder="Имя" 
                                 autocomplete="off" 
-                                required autofocus>
+                                required
+                                autofocus>
                         </span>
                         <span class="help">
                         <input  class="com-form-textinput" 
@@ -37,9 +38,9 @@
                         <input  class="com-form-textinput" 
                                 id="mail" 
                                 type="email"
-                                pattern="([^.]+[A-Za-z0-9._%+-])*[^.]@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$"
+                                pattern="[^.]+[0-9A-Za-z._%+-]*[^.]@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$"
                                 name="mail" 
-                                maxlength="30" 
+                                maxlength="40" 
                                 placeholder="E-mail" 
                                 autocomplete="off" 
                                 required>
@@ -50,8 +51,7 @@
                                 id="coment" 
                                 name="coment" 
                                 placeholder="Отправить вброс" 
-                                maxlength="200" 
-                                required></textarea>
+                                maxlength="200"></textarea>
                     
                     <input  id="send_comment"
                             class="com-form-submit" 

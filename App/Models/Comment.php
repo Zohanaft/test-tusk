@@ -5,7 +5,7 @@ use App\Core\Model;
 
 class Comment extends Model {
     
-    public function getComment($limit = 10) { 
+    public function getComment($limit = 1) { 
         
         $args = [
             'limit' => $limit
@@ -13,12 +13,15 @@ class Comment extends Model {
         
         $data = $this->db->row("SELECT * FROM comments WHERE is_valid='1' ORDER BY 
          dt DESC LIMIT :limit;", $args);
+        
+        
 
         return $data;
     }
 
 
     public function setComment($args) {
+        
         $this->db->query("INSERT INTO comments 
             (firstname, surname, lastname, mail, comment, is_valid)
             VALUES 

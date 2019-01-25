@@ -13,15 +13,14 @@ class CommentController extends Controller {
         if (array_key_exists('query', $this->route)) {
             $limit = $this->route['query'];
         }
-        else 
-        {
-            $limit = 10;
-        }
         $res = $this->model->getComment($limit);
         $this->view->shortEndpoint('', $res);
     }
 
     public function getCommentAction() {
+        if (!array_key_exists('query', $this->route)) {
+            $this->route['query'] = 1;
+        }
         $res = $this->model->getComment($this->route['query']);
         $this->view->shortEndpoint('', $res);
     }

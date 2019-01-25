@@ -11,11 +11,14 @@ class CommentSystem {
      * postUrl {string}
      */ 
     constructor(buttonId, formId, commentListId, getUrl, postUrl) {
-        this.form           =  document.querySelector(formId);
-        this.lastComment;
+        this.buttonId = buttonId
+        this.form           =  document.querySelector(formId); 
+        this.comment_list = document.querySelector(commentListId);
         this.get            = getUrl;
         this.post           = postUrl;
         this.data;
+        
+        this.lastComment;
     }
     csPrepareData() {
         return new FormData(this.form);
@@ -31,7 +34,10 @@ class CommentSystem {
                 responce => responce.json();
         })
         .then(responce => {
-            this.csGetMessage();
+            this.csGetMessage(1);
+        })
+        .then(()=>{
+            this.csRender();
         })
         .catch(err => {
             console.log("Post message error: " + err);
@@ -39,37 +45,67 @@ class CommentSystem {
 
     }
 
-    csGetMessage(numof) {
-        console.log(numof);
-        var get = numof ? this.get + '?' + numof : this.get;
-
-        fetch(get)
+    async csGetMessage(numof) {
+        // По дефолту с сервера идет только однановость
+        let get = numof 
+            ? this.get + '?' + numof 
+            : this.get;
+            
+        await fetch(get)
             .then( responce => {
                 if (responce.ok) {
                     responce.json().then(json=>{
                         this.data = json;
                         this.lastComment = json[json.length-1]['id'];
-                        console.log(this.lastComment);
+                        return true;
+                    }).then(()=>{
+                        this.csRender();
                     });
                 }
             })
             .catch(err=> {
-                console.log("Getting Message error: " + err);
-            });
+                this.data = new Error('Error getting data: ' + err);
+            })
+        return this.data;
     }
  
-    csGetMsgPool(num=10){
+    async csGetMsgPool(num=10){
         this.csGetMessage(num);
-    }
-    
+    } 
+
     csRender() {
         this.data.forEach((comment)=>{
+            let li = document.createElement('li');
+            let html = `<div class="comment">
+                <div class="self-photo">
+                    <a href="#" class="self-link">
+                        <img src="${IMG_URL}" alt="">
+                    </a>
+                </div>
+                <div class="main-comment"> 
+                    <p class="self-info">
+                        ${comment.surname}
+                        ${comment.firstname} 
+                        ${comment.lastname}
+                    <p class="self-comment">
+                        ${comment.comment}
+                    </p>
+                    <p class="self-comment-time">
+                        ${comment.dt}
+                    </p>
+                </div>
+            </div>`;
             
+            li.innerHTML = html;
+            
+            if (this.data.length == 1) {
+                this.comment_list.insertBefore(li, this.comment_list.firstChild)
+            }
+            else { 
+                this.comment_list.appendChild(li)
+            }
         });
-    }
-
-    csCommentListManager() {
-        
+        this.data = null;
     }
 }
 
@@ -78,10 +114,7 @@ const cs = new CommentSystem("#send_comment",
     "#com-list", 
     GET_MSG, POST_MSG);
 
-document.addEventListener("DOMContentLoaded", () => {
-    cs.csGetMsgPool(10);
-});
-
+cs  .csGetMsgPool(13);
 cs  .form
     .querySelector("#send_comment")
     .addEventListener('click', ()=>{
